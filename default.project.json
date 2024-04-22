@@ -18,7 +18,15 @@
 
       "State": {
         "$path": "State"
-      }
+      },
+
+      "MathUtil": {
+        "$path": "MathUtil"
+      },
+
+      "Formatter": {
+        "$path": "Formatter"
+      },
 
     }
 
