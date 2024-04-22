@@ -24,9 +24,9 @@
         "$path": "MathUtil"
       },
 
-      "Formatter": {
-        "$path": "Formatter"
-      },
+      "NumFormat": {
+        "$path": "NumFormat"
+      }
 
     }
 
