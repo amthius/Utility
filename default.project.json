@@ -1,0 +1,26 @@
+{
+  "name": "Utility",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Cooldown": {
+        "$path": "Cooldown"
+      },
+
+      "Finalizer": {
+        "$path": "Finalizer"
+      },
+
+      "Social": {
+        "$path": "Social"
+      },
+
+      "State": {
+        "$path": "State"
+      }
+
+    }
+
+  }
+}
