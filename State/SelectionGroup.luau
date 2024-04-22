@@ -19,8 +19,8 @@ type self = {
 	_selected: {identifier: string, state: Value.Struct}
 }
 
-local SelectionGroup = {} :: Struct
-(SelectionGroup :: any).__index = SelectionGroup
+local SelectionGroup = {}
+SelectionGroup.__index = SelectionGroup
 
 function SelectionGroup:Default(value: any)
 	local this: self = self :: any 
@@ -67,7 +67,7 @@ function SelectionGroup:Get()
 	if this._selected then
 		return this._selected
 	else
-		return nil
+		return nil :: any
 	end
 end
 

@@ -11,8 +11,8 @@ type self = {
 	_callback: (value: any) -> ()
 }
 
-local Value = {} :: Struct
-(Value :: any).__index = Value
+local Value = {}
+Value.__index = Value
 
 function Value:Get()
 	local this: self = self :: any
