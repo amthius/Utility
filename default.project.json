@@ -26,6 +26,10 @@
 
       "NumFormat": {
         "$path": "NumFormat"
+      },
+
+      "RayUtil": {
+        "$path": "RayUtil"
       }
 
     }
