@@ -1,9 +1,9 @@
 --!strict
 
 export type Struct = {
-	Check: (self: Struct, Player, Object: string, time: number) -> boolean,
-	ResetCooldown: (self: Struct, Player, Object: string) -> (),
-	Remove: (self: Struct, Player) -> (),
+	Check: (self: Struct, Player: Player, Object: string, time: number) -> boolean,
+	ResetCooldown: (self: Struct, Player: Player, Object: string) -> (),
+	Remove: (self: Struct, Player: Player) -> (),
 }
 
 type self = {
