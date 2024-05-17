@@ -1,5 +1,5 @@
 export type Struct = {
-    Subscribe: (self: Struct, func: (tagged: Instance) -> (), can_initalize: boolean?) -> (),
+    Subscribe: (self: Struct, func: (tagged: Instance) -> (), can_initialize: boolean?) -> (),
     Unsubscribe: (self: Struct, func: (tagged: Instance) -> ()) -> (),
     Destroy: (call_unsubscribe: boolean?) -> (),
 }
@@ -17,8 +17,8 @@ local CollectionService = game:GetService("CollectionService")
 local TagHandler = {}
 TagHandler.__index = TagHandler 
 
-function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initalize: boolean?)
-    can_initalize = can_initalize or false
+function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initialize: boolean?)
+    can_initialize = can_initialize or false
 
     local this: self = self 
 
@@ -30,7 +30,7 @@ function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initalize: boo
         end)
     end
 
-    if not can_initalize then return end
+    if not can_initialize then return end
 
     for _, tagged in CollectionService:GetTagged(this._tag) do
         this._threads[tagged] = task.spawn(function()
