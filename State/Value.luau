@@ -15,26 +15,25 @@ local Value = {}
 Value.__index = Value
 
 function Value:Get()
-	local this: self = self :: any
-
-	return this._value
+	self = self :: self
+	return self._value
 end
 
 function Value:Set(value: any)
-	local this: self = self :: any
+	self = self :: self
 
-	local previous = this._value
-	this._value = value    
+	local previous = self._value
+	self._value = value    
 
-	if this._callback and this._value ~= previous then
-		this._callback(value)
+	if self._callback and self._value ~= previous then
+		self._callback(value)
 	end
 end
 
 function Value:Listen(callback: (value: any) -> ())
-	local this: self = self :: any
+	self = self :: self
 
-	this._callback = callback
+	self._callback = callback
 end
 
 return function(value): Struct

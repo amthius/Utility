@@ -14,13 +14,13 @@ local Cooldown = {}
 Cooldown.__index = Cooldown
 
 function Cooldown:Check(player: Player, object: string, time: number): boolean
-	local this: self = self :: any
+	self = self :: self
 
-	this._users[player] = this._users[player] or {}
-	this._users[player][object] = this._users[player][object] or 0
+	self._users[player] = self._users[player] or {}
+	self._users[player][object] = self._users[player][object] or 0
 
-	if os.clock() - this._users[player][object] > time then
-		this._users[player][object] = os.clock()
+	if os.clock() - self._users[player][object] > time then
+		self._users[player][object] = os.clock()
 		return true
 	end
 	
@@ -28,19 +28,19 @@ function Cooldown:Check(player: Player, object: string, time: number): boolean
 end
 
 function Cooldown:ResetCooldown(player: Player, object: string)
-	local this: self = self :: any
+	self = self :: self
 
-	this._users[player][object] = 0
+	self._users[player][object] = 0
 end
 
 function Cooldown:Remove(player: Player)
-	local this: self = self :: any
+	self = self :: self
 
-	this._users[player] = nil
+	self._users[player] = nil
 end
 
 return function (): Struct
 	return setmetatable({
 		_users = {}
-	}, Cooldown) :: any
+	}, Cooldown) :: any  
 end

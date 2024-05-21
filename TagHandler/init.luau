@@ -18,13 +18,13 @@ local TagHandler = {}
 TagHandler.__index = TagHandler 
 
 function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initialize: boolean?)
+    self = self :: self
     can_initialize = can_initialize or false
 
-    local this: self = self 
 
-    if not this._added_rbxsignal then
-        this._added_rbxsignal = CollectionService:GetInstanceAddedSignal(this._tag):Connect(function(tagged: Instance) 
-            this._threads[tagged] = task.spawn(function()
+    if not self._added_rbxsignal then
+        self._added_rbxsignal = CollectionService:GetInstanceAddedSignal(self._tag):Connect(function(tagged: Instance) 
+            self._threads[tagged] = task.spawn(function()
                 func(tagged)
             end)
         end)
@@ -32,8 +32,8 @@ function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initialize: bo
 
     if not can_initialize then return end
 
-    for _, tagged in CollectionService:GetTagged(this._tag) do
-        this._threads[tagged] = task.spawn(function()
+    for _, tagged in CollectionService:GetTagged(self._tag) do
+        self._threads[tagged] = task.spawn(function()
             func(tagged)
         end)
     end
@@ -41,43 +41,43 @@ function TagHandler:Subscribe(func: (tagged: Instance) -> (), can_initialize: bo
 end
 
 function TagHandler:Unsubscribe(func: (tagged: Instance) -> ())
-    local this: self = self 
+    self = self :: self
 
-    if not this._removed_rbxsignal then
-        this._removed_rbxsignal = CollectionService:GetInstanceRemovedSignal(this._tag):Connect(function(tagged: Instance) 
-            this._threads[tagged] = task.spawn(function()
+    if not self._removed_rbxsignal then
+        self._removed_rbxsignal = CollectionService:GetInstanceRemovedSignal(self._tag):Connect(function(tagged: Instance) 
+            self._threads[tagged] = task.spawn(function()
                 func(tagged)
             end)
         end)
     end
 
-    this._callback_unsubscribe = func
+    self._callback_unsubscribe = func
 
 end
 
 function TagHandler:Destroy(call_unsubscribe: boolean?)
-    local this: self = self
+    self = self :: self
 
-    if this._added_rbxsignal and typeof(this._added_rbxsignal) == "RBXScriptConnection" then
-        this._added_rbxsignal:Disconnect()
+    if self._added_rbxsignal and typeof(self._added_rbxsignal) == "RBXScriptConnection" then
+        self._added_rbxsignal:Disconnect()
     end
 
-    if this._removed_rbxsignal and typeof(this._added_rbxsignal) == "RBXScriptConnection" then
-        this._removed_rbxsignal:Disconnect()
+    if self._removed_rbxsignal and typeof(self._added_rbxsignal) == "RBXScriptConnection" then
+        self._removed_rbxsignal:Disconnect()
     end
 
     if call_unsubscribe then
-        for _, tagged in CollectionService:GetTagged(this._tag) do
-            tagged:RemoveTag(this._tag)
+        for _, tagged in CollectionService:GetTagged(self._tag) do
+            tagged:RemoveTag(self._tag)
 
-            if this._callback_unsubscribe then
-                this._callback_unsubscribe(tagged)
+            if self._callback_unsubscribe then
+                self._callback_unsubscribe(tagged)
             end
 
         end
     end
 
-    for _, thread in this._threads do
+    for _, thread in self._threads do
         if typeof(thread) == "thread" then
             task.cancel(thread)
         end

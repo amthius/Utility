@@ -23,49 +23,49 @@ local SelectionGroup = {}
 SelectionGroup.__index = SelectionGroup
 
 function SelectionGroup:Default(value: any)
-	local this: self = self :: any 
+	self = self :: self
 
-	this._default = value
+	self._default = value
 end
 
 function SelectionGroup:Add(identifier: IdentifierT, state: Value.Struct)
-	local this: self = self :: any
-	this._table[identifier] = state
+	self = self :: self
+	self._table[identifier] = state
 end
 
 function SelectionGroup:Remove(Indexer: any)
-	local this: self = self :: any
-	this._table[Indexer] = nil
+	self = self :: self
+	self._table[Indexer] = nil
 end
 
 function SelectionGroup:Set(Indexer: IdentifierT, value: any)
-	local this: self = self :: any
+	self = self :: self
 	
-	for index, item in this._table :: ItemT do
+	for index, item in self._table :: ItemT do
 		if index == Indexer then
 			item:Set(value)
-			this._selected = {identifier = index, state = item}
+			self._selected = {identifier = index, state = item}
 		else
-			item:Set(this._default)
+			item:Set(self._default)
 		end
 	end
 end
 
 function SelectionGroup:Reset()
-	local this: self = self :: any
+	self = self :: self
 	
-	if this._selected.identifier then
-		this._selected.state:Set(this._default)
+	if self._selected.identifier then
+		self._selected.state:Set(self._default)
 	end
 	
-	this._selected = nil :: any
+	self._selected = nil :: any
 end
 
 function SelectionGroup:Get()
-	local this: self = self :: any
-	
-	if this._selected then
-		return this._selected
+	self = self :: self
+
+	if self._selected then
+		return self._selected
 	else
 		return nil :: any
 	end
