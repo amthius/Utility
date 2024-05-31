@@ -29,13 +29,11 @@ end
 
 function Cooldown:ResetCooldown(player: Player, object: string)
 	self = self :: self
-
 	self._users[player][object] = 0
 end
 
 function Cooldown:Remove(player: Player)
 	self = self :: self
-
 	self._users[player] = nil
 end
 
