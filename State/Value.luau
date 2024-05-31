@@ -32,7 +32,6 @@ end
 
 function Value:Listen(callback: (value: any) -> ())
 	self = self :: self
-
 	self._callback = callback
 end
 
