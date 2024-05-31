@@ -24,7 +24,6 @@ SelectionGroup.__index = SelectionGroup
 
 function SelectionGroup:Default(value: any)
 	self = self :: self
-
 	self._default = value
 end
 
