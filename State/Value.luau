@@ -8,7 +8,7 @@ export type Struct = {
 
 type self = {
 	_value: any,
-	_callback: (value: any) -> ()
+	_callbacks: {[number]: (value: any) -> ()}
 }
 
 local Value = {}
@@ -25,19 +25,26 @@ function Value:Set(value: any)
 	local previous = self._value
 	self._value = value    
 
-	if self._callback and self._value ~= previous then
-		self._callback(value)
+	if self._value ~= previous then
+		for _, item in self._callbacks do
+			task.spawn(function()
+				item(value)
+			end)
+		end
 	end
+
 end
 
 function Value:Listen(callback: (value: any) -> ())
 	self = self :: self
-	self._callback = callback
+	local callbacks = self._callbacks
+
+	callbacks[#callbacks + 1] = callback
 end
 
 return function(value): Struct
 	return setmetatable({
 		_value = value,
-		_callback = nil,
+		_callbacks = {},
 	}, Value) :: any
 end
