@@ -7,7 +7,7 @@ Collection of useful utility for my projects.
 - Default name of folder is `Utility`
 - If you have a folder in the default location with the same name as default, then change `StorageName` to something else.
 - I do not recommend placing anything inside of the generated folder as there is a chance of your stuff being deleted/overwritten! However manually added instances wont be deleted (_and its children_). As long as its not a [ModuleScript](https://create.roblox.com/docs/reference/engine/classes/ModuleScript)
-## Installation steps
+## Installation/Updating steps
 1. Enable the command bar if its not already.
 2. Paste the code below inside of it.
 ```luau
