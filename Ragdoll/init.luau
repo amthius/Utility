@@ -30,14 +30,17 @@ Ragdoll.__index = Ragdoll
 
 function Ragdoll:Enabled(value: boolean)
     self = self :: self
-
     local items = self._items
 
-    items.root_part.CanCollide = not value 
-    items.lower_torso.CanCollide = not value 
-    items.upper_torso.CanCollide = not value
-	items.head.CanCollide = value 
-
+    for name, item in items do
+        if not item:IsA("BasePart") then continue end
+        if name == "head" then
+            item.CanCollide = value
+        else
+            item.CanCollide = not value
+        end
+    end
+    
     if value then
         items.humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
         items.humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false)
@@ -53,6 +56,8 @@ function Ragdoll:Enabled(value: boolean)
     for _, item in self._rigged.sockets do
         item.Enabled = value
     end
+
+    self._last_state = value
 
 end
 
