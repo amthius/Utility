@@ -33,6 +33,8 @@ return function(class_name: RigidInstances, root: BasePart, objects: {[number]: 
 
     if class_name == "RigidConstraint" then
         for _, item in objects do
+            if not item:IsA("BasePart") then continue end
+
             local rigid = Instance.new("RigidConstraint")
             local att0 = Instance.new("Attachment")
             local att1 = Instance.new("Attachment")
@@ -52,6 +54,8 @@ return function(class_name: RigidInstances, root: BasePart, objects: {[number]: 
         end
     elseif class_name == "WeldConstraint" then
         for _, item in objects do
+            if not item:IsA("BasePart") then continue end
+
             local weld = Instance.new("WeldConstraint")
             weld.Part0 = root 
             weld.Part1 = item
@@ -61,6 +65,8 @@ return function(class_name: RigidInstances, root: BasePart, objects: {[number]: 
         end
     else
         for _, item in objects do
+            if not item:IsA("BasePart") then continue end
+
             local weld = Instance.new(class_name)
             weld.Part0 = root 
             weld.Part1 = item 
