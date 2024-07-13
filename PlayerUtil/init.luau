@@ -34,7 +34,7 @@ function PlayerUtil.CharacterAdded(player: Player, callback: (character: Model) 
     Callbacks.CharacterAdded[#Callbacks.CharacterAdded + 1] = callback
 
     if player.Character then
-        callback(player.Character)
+        task.spawn(callback, player.Character)
     end
 end
 
@@ -47,7 +47,7 @@ function PlayerUtil.LocalCharacterAdded(callback: (character: Model) -> ())
     local character = player.Character
 
     if character then
-        callback(character)
+        task.spawn(callback, player.Character)
     end
 end
 
