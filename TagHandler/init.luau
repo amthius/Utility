@@ -1,7 +1,8 @@
 export type Struct = {
     Subscribe: (self: Struct, func: (tagged: Instance) -> (), can_initialize: boolean?) -> (),
     Unsubscribe: (self: Struct, func: (tagged: Instance) -> ()) -> (),
-    Destroy: (call_unsubscribe: boolean?) -> (),
+    Destroy: (self: Struct, call_unsubscribe: boolean?) -> (),
+    Tagged: (self: Struct, item: Instance) -> boolean
 }
 
 type self = {
@@ -83,6 +84,11 @@ function TagHandler:Destroy(call_unsubscribe: boolean?)
         end
     end
 
+end
+
+function TagHandler:Tagged(item: Instance)
+    self = self :: self
+    return CollectionService:HasTag(item, self._tag)
 end
 
 return function (tag: string): Struct
