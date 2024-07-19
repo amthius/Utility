@@ -1,7 +1,7 @@
 --!strict
 
 export type Struct = {
-	Set: (self: Struct, value: any, force: boolean?) -> (),
+	Set: (self: Struct, value: any) -> (),
 	Get: (self: Struct) -> (),
 	Listen: (self: Struct, callback: (value: any) -> ()) -> (),
 }
@@ -19,14 +19,13 @@ function Value:Get()
 	return self._value
 end
 
-function Value:Set(value: any, force: boolean?)
+function Value:Set(value: any)
 	self = self :: self
-	force = force or false
 
 	local previous = self._value
 	self._value = value    
 
-	if self._value ~= previous or force then
+	if self._value ~= previous then
 		for _, item in self._callbacks do
 			task.spawn(function()
 				item(value)
