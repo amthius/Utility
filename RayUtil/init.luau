@@ -12,7 +12,7 @@ function RayUtil.Raycast(origin: Vector3, direction: Vector3, params: RaycastPar
     return if result then result else intersection 
 end
 
-function RayUtil.Position(raycast: RaycastResult): Vector3
+function RayUtil.Position(raycast: RaycastResult | Vector3): Vector3
     return if typeof(raycast) == "RaycastResult" then raycast.Position else raycast
 end
 
