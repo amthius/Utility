@@ -10,4 +10,8 @@ function MathUtil.Normalize(min: number, max: number, val: number): number
     return (val - min) / (max - min)
 end
 
+function MathUtil.Reflect(vector: Vector3, normal: Vector3)
+	return -2 * vector:Dot(normal) * normal + vector
+end 
+
 return MathUtil
