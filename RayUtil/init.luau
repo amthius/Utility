@@ -1,19 +1,39 @@
 --!strict
 
+local UserInputService = game:GetService("UserInputService")
+local Camera = workspace:WaitForChild("Camera") :: Camera
+
 local RayUtil = {}
-local DISTANCE_MAX = 1000 
 
-function RayUtil.Raycast(origin: Vector3, direction: Vector3, params: RaycastParams, distance: number?): RaycastResult | Vector3
-    direction = direction * (distance or DISTANCE_MAX)
+function RayUtil.Raycast(
+    origin: Vector3,
+    direction: Vector3,
+    max_distance: number,
+    params: RaycastParams?
+)
+    local result = workspace:Raycast(
+        origin, 
+        direction * max_distance, 
+        params or RaycastParams.new()
+    )
 
-    local result = workspace:Raycast(origin, direction, params)
-    local intersection = result and result.Position or origin + direction
+    if result then
+        return result
+    else
+        return {Position = origin + direction * max_distance}
+    end
 
-    return if result then result else intersection 
 end
 
-function RayUtil.Position(raycast: RaycastResult | Vector3): Vector3
-    return if typeof(raycast) == "RaycastResult" then raycast.Position else raycast
+function RayUtil.RayFromView(distance: number, params: RaycastParams?)
+    local mouse_pos = UserInputService:GetMouseLocation()
+    local viewport_ray = Camera:ViewportPointToRay(mouse_pos.X, mouse_pos.Y)
+
+    return RayUtil.Raycast(
+        viewport_ray.Origin,
+        viewport_ray.Direction, 
+        distance, 
+        params)
 end
 
 return RayUtil
