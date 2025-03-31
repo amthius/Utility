@@ -1,4 +1,4 @@
 return {
 	Prefabs = require(script.Prefabs),
-	State = require(script.State)
+	State = require(script.StateManager)
 }
