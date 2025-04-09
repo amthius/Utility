@@ -9,7 +9,7 @@ local Storage = {
 
 local Ratios = {
 	{
-		scale = 0.7,
+		scale = 0.5,
 		max = 500,
 	},
 	
@@ -41,7 +41,7 @@ function Prefabs.ScreenGui(name: string)
 	ScreenGui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.FullscreenExtension
 	ScreenGui.ScreenInsets = Enum.ScreenInsets.None
 	ScreenGui.ResetOnSpawn = false
-	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	ScreenGui.Parent = PlayerGui
 	return ScreenGui
 end
