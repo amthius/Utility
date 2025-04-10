@@ -1,44 +1,21 @@
 --!strict
+local Players = game:GetService("Players")
 
-export type Struct = {
-	Check: (self: Struct, Player: Player, Object: string, time: number) -> boolean,
-	ResetCooldown: (self: Struct, Player: Player, Object: string) -> (),
-	Remove: (self: Struct, Player: Player) -> (),
-}
+local Users = {}
 
-type self = {
-	_users: {}
-}
+Players.PlayerRemoving:Connect(function(player: Player)
+	if Users[player] then
+		Users[player] = nil
+	end
+end)
 
-local Cooldown = {}
-Cooldown.__index = Cooldown
-
-function Cooldown:Check(player: Player, object: string, time: number): boolean
-	self = self :: self
-
-	self._users[player] = self._users[player] or {}
-	self._users[player][object] = self._users[player][object] or 0
-
-	if os.clock() - self._users[player][object] > time then
-		self._users[player][object] = os.clock()
+return function (player: Player, name: string, time: number)
+	if not Users[player] then
+		Users[player] = {[name] = os.clock()}
+		return true
+	elseif os.clock() - Users[player][name] > time then
+		Users[player][name] = os.clock()
 		return true
 	end
-	
 	return false
-end
-
-function Cooldown:ResetCooldown(player: Player, object: string)
-	self = self :: self
-	self._users[player][object] = 0
-end
-
-function Cooldown:Remove(player: Player)
-	self = self :: self
-	self._users[player] = nil
-end
-
-return function (): Struct
-	return setmetatable({
-		_users = {}
-	}, Cooldown) :: any  
 end
