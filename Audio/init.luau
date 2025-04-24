@@ -15,7 +15,7 @@ DefaultSoundGroup.Name = "Default"
 DefaultSoundGroup.Parent = SoundService 
 
 
-function Audio.new(inst: Instance, props: AudioProps)
+function Audio.new(props: AudioProps)
     local sound = Instance.new("Sound")
     sound.SoundId = `rbxassetid://{tostring(props.Id)}`
     sound.SoundGroup = props.SoundGroup or DefaultSoundGroup
