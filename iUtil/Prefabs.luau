@@ -13,6 +13,19 @@ local function HandleScale(multiplier: number)
 	return math.clamp((Camera.ViewportSize.Y / CurrentResolution) * multiplier, ResolutionMin, ResolutionMax)
 end
 
+function Prefabs.FromInstance(instance: Instance, multiplier: number?)
+    multiplier = multiplier or 1
+
+    for _, item in instance:GetDescendants() do
+        if item:IsA("UIStroke") or item:IsA("UIScale") then
+            item:SetAttribute("Multiplier", multiplier)
+            table.insert(TrackedElements, item)
+        end
+    end
+
+    return instance
+end
+
 function Prefabs.ScreenGui(name: string)
 	local ScreenGui = Instance.new("ScreenGui")
 	ScreenGui.Name = name
