@@ -1,6 +1,6 @@
 local SoundService = game:GetService("SoundService")
 
-type AudioProps = {
+export type AudioProps = {
     Id: number,
     Volume: number?,
     SoundGroup: SoundGroup?
